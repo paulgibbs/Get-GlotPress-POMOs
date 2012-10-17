@@ -68,8 +68,14 @@ Net::HTTP.start( 'translate.wordpress.org' ) do |http|
 		translations.each do |translation|
 			puts translation[:language]
 
-			file_mo  = open( File.join( Dir.pwd, 'pomo', "#{translation[:lang_code]}.mo" ), 'wb' )
-			file_pot = open( File.join( Dir.pwd, 'pomo', "#{translation[:lang_code]}.pot" ), 'wb' )
+			# See if there's a way to automagically figure this out from GlotPress -- or build a big hashmap
+			file_name = translation[:lang_code];
+			if 'es' == file_name
+				file_name = 'es_ES';
+			end
+
+			file_mo   = open( File.join( Dir.pwd, 'pomo', "#{file_name}.mo" ), 'wb' )
+			file_pot  = open( File.join( Dir.pwd, 'pomo', "#{file_name}.pot" ), 'wb' )
 
 			# Download the .mo. We're writing straight to the open file rather than buffering contents in memory
 			http.request_get( "#{translation[:base_url]}/export-translations?format=mo" ) do |response|
