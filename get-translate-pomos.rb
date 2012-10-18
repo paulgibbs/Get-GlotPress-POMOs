@@ -70,8 +70,25 @@ Net::HTTP.start( 'translate.wordpress.org' ) do |http|
 
 			# See if there's a way to automagically figure this out from GlotPress -- or build a big hashmap
 			file_name = translation[:lang_code];
-			if 'es' == file_name
-				file_name = 'es_ES';
+			case file_name
+			when 'es'
+				file_name = 'es_ES'
+			when 'nl'
+				file_name = 'nl_NL'
+			when 'ko'
+				file_name = 'ko_KR'
+			when 'ru'
+				file_name = 'ru_RU'
+			when 'pt-br'
+				file_name = 'pt_BR'
+			when 'pt'
+				file_name = 'pt_PT'
+			when 'nb'
+				file_name = 'nb_NO'
+			when 'it'
+				file_name = 'it_IT'
+			else
+				file_name = file_name
 			end
 
 			file_mo   = open( File.join( Dir.pwd, 'pomo', "#{file_name}.mo" ), 'wb' )
