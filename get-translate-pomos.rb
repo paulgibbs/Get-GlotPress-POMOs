@@ -95,6 +95,8 @@ Net::HTTP.start( 'translate.wordpress.org' ) do |http|
 				file_name = 'fr_FR'
 			when 'hu'
 				file_name = 'hu_HU'
+			when 'da'
+				file_name = 'da_DK'
 			else
 				file_name = file_name
 			end
