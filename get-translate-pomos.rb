@@ -8,7 +8,7 @@ require 'net/http'
 Downloads .mo and .pot files from completed translations of a specific project on translate.wordpress.org.
 
 
-Copyright (c) 2012 Paul Gibbs
+Copyright (c) 2012-13 Paul Gibbs
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
@@ -19,7 +19,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 if ARGV[0].nil? or ARGV[1].nil?
 	puts 'Usage: get-translate-pomos.rb PROJECT VERSION'
 	puts "\tPROJECT: URL slug for a project listed at http://translate.wordpress.org/projects/. e.g. buddypress"
-	puts "\tVERSION: A sub-project, or version, of the PROJECT. e.g. 1.6.x"
+	puts "\tVERSION: A sub-project, or version, of the PROJECT. e.g. 1.7.x"
 	puts ''
 	abort
 end
@@ -41,8 +41,8 @@ doc.search( '.translation-sets tbody tr' ).each do |row|
 	lang_code  = base_url.split( '/' ).fetch( -2 ).gsub( /[^aA0-zZ9.\-]/, '_' );
 	language   = row.search( 'td strong a' ).inner_html.gsub( /\n/, '' )
 
-	# Let's only work with translations that are at least 90% complete
-	if completion.to_i < 90
+	# Let's only work with translations that are at least 79% complete
+	if completion.to_i < 79
 		next
 	end
 
@@ -99,6 +99,24 @@ Net::HTTP.start( 'translate.wordpress.org' ) do |http|
 				file_name = 'da_DK'
 			when 'zh-tw'
 				file_name = 'zh_TW'
+			when 'hr'
+				file_name = 'hr'
+			when 'th'
+				file_name = 'th'
+			when 'ja'
+				file_name = 'ja'
+			when 'fi'
+				file_name = 'fi'
+			when 'id'
+				file_name = 'id_ID'
+			when 'he'
+				file_name = 'he_IL'
+			when 'ca'
+				file_name = 'ca'
+			when 'sv'
+				file_name = 'sv_SE'
+			when 'el'
+				file_name = 'el'
 			else
 				file_name = file_name
 			end
